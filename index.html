@@ -8,11 +8,18 @@
 </head>
 <body>
     <div id="title">Fishtype</div>
+    <div id="subtitle">A Monkeytype Clone</div>
     <div id="text-container">
-        <div id="text"></div>
+        <div id="statsContainer">
+            <div id="wordsComplete"></div>
+            <div id="wpm">WPM: 120</div>
+        </div>
+
+        <div class="text" id="text"></div>
+        <div class="text" id="typed"></div>
     </div>
 
-    <input type="text" id="input" autofocus onblur="this.focus()">
+    <input type="text" id="input" autocomplete="off" autofocus onblur="this.focus()">
 
     <script src="script.js"></script>
 </body>

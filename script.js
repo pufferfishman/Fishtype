@@ -45,46 +45,74 @@ const marineWords = [
 
 const textDisplay = document.getElementById("text");
 const input = document.getElementById("input");
-
+const wordsCompleteDisplay = document.getElementById("wordsComplete");
+let typed = document.getElementById("typed");
+let textLength = 25;
+let wpm = 0;
+let stopwatch;
 let wordsLeft;
 
-generateText()
+start()
 
-input.addEventListener("input", function(e) {
-    
-    console.log("letter typed");
-});
-
-displayText();
-
-
-
+function start() {
+    generateText(wordList);
+    displayText();
+}
 
 function wordTyped() {
-    
+    wordsLeft.shift();
+    input.value = "";
+    typed.innerHTML = "";
+    displayText();
 }
 
 function displayText() {
-    textDisplay.innerHTML = generateText(10, wordList);
+    wordsCompleteDisplay.innerHTML = Math.abs(wordsLeft.length - 25) + "/" + textLength;
+    if (Math.abs(wordsLeft.length - 25) == textLength) {
+
+    }
+    textDisplay.innerHTML = wordsLeft.slice(0, 10).join().replaceAll(",", " ");
 }
 
-function generateText(number, words) {
+function generateText(words) {
     wordsLeft = words;
-    shuffle(wordsLeft);
-    //return (wordsLeft.slice(0, number).join().replaceAll(",", " "));
+    shuffle(wordsLeft)
+    wordsLeft = wordsLeft.slice(0, textLength);
 }
 
 function shuffle(array) {
     let currentIndex = array.length;
 
-    // While there remain elements to shuffle
     while (currentIndex != 0) {
 
-        // Pick a remaining element
         let randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
 
-        // And swap it with the current element
         [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
     }
 }
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === " ") {
+    if (input.value == wordsLeft[0]) {
+        wordTyped();
+    }
+
+    event.preventDefault();
+  }
+});
+
+input.addEventListener("input", function(e) {
+    typed.innerHTML = input.value;
+
+
+    /*for (let i = 0; i < wordsLeft.length; i++) {
+        if (input.value.charAt(i) == wordsLeft[0].charAt(i)) {
+            // <span></span>
+        
+            textDisplay.innerHTML = wordsLeft.slice(0, 10).join().replaceAll(",", " ")
+        }
+    }*/
+
+    console.log("letter typed");
+});
