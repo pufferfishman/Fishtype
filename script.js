@@ -61,6 +61,7 @@ let increment;
 let timer;
 let currentMode = "words";
 
+
 function start() {
     startButton.disabled = true;
     document.querySelectorAll(".length").forEach(button => {button.disabled = true;});
@@ -74,18 +75,21 @@ function start() {
 
     wpm = 0;
     wpmDisplay.innerHTML = "";
-    generateText(wordList);
+    generateText();
     displayText();
 }
 
 function end() {
     startButton.disabled = false;
+    document.querySelectorAll(".length").forEach(button => {button.disabled = false;});
     clearInterval(increment);
     clearInterval(timer);
     if (currentMode == "words") {
         wpm = Math.round((textLength / stopwatch) * 600);
     } else if (currentMode == "time") {
-        wpm = Math.round((wordsLeft / timeLength) * 60);
+        console.log(wordsLeft, timeLength);
+        textDisplay.innerHTML = "";
+        wpm = Math.round(((200 - (wordsLeft.length + 1)) / timeLength) * 60);
     }
     wpmDisplay.innerHTML = "WPM: " + wpm;
 }
@@ -103,8 +107,9 @@ function startStopwatch() {
         }, 100);
     } else if (currentMode == "time") {
         timer = setInterval(function () {
-            if (stopwatch < 1) {
+            if (stopwatch == 1) {
                 end();
+                clearInterval(timer);
             }
             stopwatch--;
             displayText();
@@ -124,7 +129,7 @@ function displayText() {
     if (currentMode == "words") {
         wordsCompleteDisplay.innerHTML = Math.abs(wordsLeft.length - textLength) + "/" + textLength;
     } else if (currentMode == "time") {
-        wordsCompleteDisplay.innerHTML = "Time: " + stopwatch;
+        wordsCompleteDisplay.innerHTML = stopwatch;
     }
     console.log(currentMode);
 
@@ -134,8 +139,8 @@ function displayText() {
     }
 }
 
-function generateText(words) {
-    wordsLeft = words;
+function generateText() {
+    wordsLeft = [...wordList];
     shuffle(wordsLeft)
     if (currentMode == "words") {
         wordsLeft = wordsLeft.slice(0, textLength);
