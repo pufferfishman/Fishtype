@@ -129,3 +129,11 @@ input {
     font-size: 24px;
     margin-right: 100px;
 }
+
+#start:disabled {
+    background-color: #818599;
+}
+
+.textLength:disabled {
+    background-color: #818599;
+}

@@ -43,18 +43,51 @@ const marineWords = [
   "kelpy", "briny", "foamy", "ripple", "tidal", "surfing", "salty", "oyster", "pilot", "drifter"
 ];
 
-const textDisplay = document.getElementById("text");
-const input = document.getElementById("input");
-const wordsCompleteDisplay = document.getElementById("wordsComplete");
+let textDisplay = document.getElementById("text");
+let input = document.getElementById("input");
+let wordsCompleteDisplay = document.getElementById("wordsComplete");
+let startButton = document.getElementById("start");
+let textLengthButtons = document.getElementsByClassName("textLength");
+let wpmDisplay = document.getElementById("wpm");
 let typed = document.getElementById("typed");
 let textLength = 25;
 let wpm = 0;
 let stopwatch;
 let wordsLeft;
+let stopwatchStarted = false;
+let increment;
 
 function start() {
+    startButton.disabled = true;
+    stopwatchStarted = false;
+    
+    stopwatch = 0;
+
+    wpm = 0;
+    wpmDisplay.innerHTML = "";
     generateText(wordList);
     displayText();
+}
+
+function end() {
+    startButton.disabled = false;
+    clearInterval(increment);
+    console.log("textLength = " + textLength);
+    console.log("stopwatch = " + stopwatch);
+    console.log("seconds = " + stopwatch / 60);
+    wpm = Math.round((textLength / stopwatch) * 600);
+    wpmDisplay.innerHTML = "WPM: " + wpm;
+}
+
+function firstLetterTyped() {
+    console.log("first letter typed");
+    if (stopwatchStarted) {
+        console.log("stopwatch started, returned");
+    return;}
+
+    increment = setInterval(function () {
+        stopwatch += 1;
+    }, 100);
 }
 
 function wordTyped() {
@@ -66,10 +99,10 @@ function wordTyped() {
 
 function displayText() {
     wordsCompleteDisplay.innerHTML = Math.abs(wordsLeft.length - textLength) + "/" + textLength;
-    if (Math.abs(wordsLeft.length - textLength) == textLength) {
-
-    }
     textDisplay.innerHTML = wordsLeft.slice(0, textLength).join().replaceAll(",", " ");
+    if (Math.abs(wordsLeft.length - textLength) == textLength) {
+        end();
+    }
 }
 
 function generateText(words) {
@@ -95,22 +128,12 @@ document.addEventListener('keydown', function(event) {
     if (input.value == wordsLeft[0]) {
         wordTyped();
     }
-
     event.preventDefault();
   }
 });
 
 input.addEventListener("input", function(e) {
+    firstLetterTyped();
+    stopwatchStarted = true;
     typed.innerHTML = input.value;
-
-
-    /*for (let i = 0; i < wordsLeft.length; i++) {
-        if (input.value.charAt(i) == wordsLeft[0].charAt(i)) {
-            // <span></span>
-        
-            textDisplay.innerHTML = wordsLeft.slice(0, 10).join().replaceAll(",", " ")
-        }
-    }*/
-
-    console.log("letter typed");
 });
