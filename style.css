@@ -70,7 +70,7 @@ input {
     font-size: 24px;
 }
 
-#textLengthContainer {
+#textLengthContainer, #timeLengthContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -78,7 +78,7 @@ input {
     gap: 10px;
 }
 
-.textLength {
+.length {
     font-size: 20px;
     height: 28px;
     width: 60px;
@@ -94,17 +94,16 @@ input {
 }
 
 #settingsContainer {
-    border: solid white;
     width: 75%;
     margin-bottom: 100px;
     margin-top: -100px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
 }
 
-#textLengths {
+#textLengths, #timeLengths {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -112,7 +111,7 @@ input {
 
 }
 
-#textLengthTitle {
+#textLengthTitle, #timeLengthTitle {
     font-size: 24px;
 }
 
@@ -127,13 +126,12 @@ input {
     justify-content: center;
     align-items: center;
     font-size: 24px;
-    margin-right: 100px;
 }
 
 #start:disabled {
     background-color: #818599;
 }
 
-.textLength:disabled {
+.textLength:disabled, .timeLength:disabled {
     background-color: #818599;
 }

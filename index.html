@@ -15,15 +15,24 @@
             <div id="textLengthContainer">
                 <div id="textLengthTitle">Words</div>
                 <div id="textLengths">
-                    <button onclick="textLength = 10;" class="textLength" id="tenWords">10</button>
-                    <button onclick="textLength = 25;" class="textLength" id="twentyfiveWords">25</button>
-                    <button onclick="textLength = 50;" class="textLength" id="fiftyWords">50</button>
-                    <button onclick="textLength = 100;" class="textLength" id="hundredWords">100</button>
+                    <button onclick="textLength = 10; currentMode = 'words';" class="textLength length" id="tenWords">10</button>
+                    <button onclick="textLength = 25; currentMode = 'words';" class="textLength length" id="twentyfiveWords">25</button>
+                    <button onclick="textLength = 50; currentMode = 'words';" class="textLength length" id="fiftyWords">50</button>
+                    <button onclick="textLength = 100; currentMode = 'words';" class="textLength length" id="hundredWords">100</button>
                 </div>
             </div>
 
-            <button id="start" onclick="start()">Start Test</button>
+            <div id="timeLengthContainer">
+                <div id="timeLengthTitle">Time</div>
+                <div id="timeLengths">
+                    <button onclick="timeLength = 15; currentMode = 'time';"  class="timeLength length" id="fifteenSeconds">15s</button>
+                    <button onclick="timeLength = 30; currentMode = 'time';" class="timeLength length" id="thirtySeconds">30s</button>
+                    <button onclick="timeLength = 60; currentMode = 'time';" class="timeLength length" id="sixtySeconds">60s</button>
+                    <button onclick="timeLength = 120; currentMode = 'time';" class="timeLength length" id="onetwentySeconds">120s</button>
+                </div>
+            </div>
         </div>
+        <button id="start" onclick="start()">Start Test</button>
 
         <div id="statsContainer">
             <div id="wordsComplete"></div>

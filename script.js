@@ -48,20 +48,29 @@ let input = document.getElementById("input");
 let wordsCompleteDisplay = document.getElementById("wordsComplete");
 let startButton = document.getElementById("start");
 let textLengthButtons = document.getElementsByClassName("textLength");
+let timeLengthButtons = document.getElementsByClassName("timeLength");
 let wpmDisplay = document.getElementById("wpm");
 let typed = document.getElementById("typed");
 let textLength = 25;
+let timeLength = 15;
 let wpm = 0;
 let stopwatch;
 let wordsLeft;
 let stopwatchStarted = false;
 let increment;
+let timer;
+let currentMode = "words";
 
 function start() {
     startButton.disabled = true;
+    document.querySelectorAll(".length").forEach(button => {button.disabled = true;});
     stopwatchStarted = false;
-    
-    stopwatch = 0;
+
+    if (currentMode == "words") {
+        stopwatch = 0;
+    } else if (currentMode == "time") {
+        stopwatch = timeLength;
+    }
 
     wpm = 0;
     wpmDisplay.innerHTML = "";
@@ -72,22 +81,36 @@ function start() {
 function end() {
     startButton.disabled = false;
     clearInterval(increment);
-    console.log("textLength = " + textLength);
-    console.log("stopwatch = " + stopwatch);
-    console.log("seconds = " + stopwatch / 60);
-    wpm = Math.round((textLength / stopwatch) * 600);
+    clearInterval(timer);
+    if (currentMode == "words") {
+        wpm = Math.round((textLength / stopwatch) * 600);
+    } else if (currentMode == "time") {
+        wpm = Math.round((wordsLeft / timeLength) * 60);
+    }
     wpmDisplay.innerHTML = "WPM: " + wpm;
 }
 
-function firstLetterTyped() {
+
+function startStopwatch() {
     console.log("first letter typed");
     if (stopwatchStarted) {
         console.log("stopwatch started, returned");
     return;}
 
-    increment = setInterval(function () {
-        stopwatch += 1;
-    }, 100);
+    if (currentMode == "words") {
+        increment = setInterval(function () {
+            stopwatch++;
+        }, 100);
+    } else if (currentMode == "time") {
+        timer = setInterval(function () {
+            if (stopwatch < 1) {
+                end();
+            }
+            stopwatch--;
+            displayText();
+        }, 1000);
+    }
+
 }
 
 function wordTyped() {
@@ -98,7 +121,13 @@ function wordTyped() {
 }
 
 function displayText() {
-    wordsCompleteDisplay.innerHTML = Math.abs(wordsLeft.length - textLength) + "/" + textLength;
+    if (currentMode == "words") {
+        wordsCompleteDisplay.innerHTML = Math.abs(wordsLeft.length - textLength) + "/" + textLength;
+    } else if (currentMode == "time") {
+        wordsCompleteDisplay.innerHTML = "Time: " + stopwatch;
+    }
+    console.log(currentMode);
+
     textDisplay.innerHTML = wordsLeft.slice(0, textLength).join().replaceAll(",", " ");
     if (Math.abs(wordsLeft.length - textLength) == textLength) {
         end();
@@ -108,7 +137,9 @@ function displayText() {
 function generateText(words) {
     wordsLeft = words;
     shuffle(wordsLeft)
-    wordsLeft = wordsLeft.slice(0, textLength);
+    if (currentMode == "words") {
+        wordsLeft = wordsLeft.slice(0, textLength);
+    }
 }
 
 function shuffle(array) {
@@ -133,7 +164,7 @@ document.addEventListener('keydown', function(event) {
 });
 
 input.addEventListener("input", function(e) {
-    firstLetterTyped();
+    startStopwatch();
     stopwatchStarted = true;
     typed.innerHTML = input.value;
 });
