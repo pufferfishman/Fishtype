@@ -9,10 +9,25 @@
 <body>
     <div id="title">Fishtype</div>
     <div id="subtitle">A Monkeytype Clone</div>
-    <div id="text-container">
+    <div id="textContainer">
+
+        <div id="settingsContainer">
+            <div id="textLengthContainer">
+                <div id="textLengthTitle">Words</div>
+                <div id="textLengths">
+                    <button onclick="textLength = 10;" class="textLength" id="tenWords">10</button>
+                    <button onclick="textLength = 25;" class="textLength" id="twentyfiveWords">25</button>
+                    <button onclick="textLength = 50;" class="textLength" id="fiftyWords">50</button>
+                    <button onclick="textLength = 100;" class="textLength" id="hundredWords">100</button>
+                </div>
+            </div>
+
+            <button id="start" onclick="start()">Start Test</button>
+        </div>
+
         <div id="statsContainer">
             <div id="wordsComplete"></div>
-            <div id="wpm">WPM: 120</div>
+            <div id="wpm">WPM: x</div>
         </div>
 
         <div class="text" id="text"></div>

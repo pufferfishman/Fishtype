@@ -52,8 +52,6 @@ let wpm = 0;
 let stopwatch;
 let wordsLeft;
 
-start()
-
 function start() {
     generateText(wordList);
     displayText();
@@ -67,11 +65,11 @@ function wordTyped() {
 }
 
 function displayText() {
-    wordsCompleteDisplay.innerHTML = Math.abs(wordsLeft.length - 25) + "/" + textLength;
-    if (Math.abs(wordsLeft.length - 25) == textLength) {
+    wordsCompleteDisplay.innerHTML = Math.abs(wordsLeft.length - textLength) + "/" + textLength;
+    if (Math.abs(wordsLeft.length - textLength) == textLength) {
 
     }
-    textDisplay.innerHTML = wordsLeft.slice(0, 10).join().replaceAll(",", " ");
+    textDisplay.innerHTML = wordsLeft.slice(0, textLength).join().replaceAll(",", " ");
 }
 
 function generateText(words) {

@@ -44,7 +44,7 @@ body {
     overflow: hidden;
 }
 
-#text-container {
+#textContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -68,4 +68,64 @@ input {
     align-items: center;
     width: 75%;
     font-size: 24px;
+}
+
+#textLengthContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.textLength {
+    font-size: 20px;
+    height: 28px;
+    width: 60px;
+    background-color: var(--text);
+    color: var(--background);
+    padding-top: 2px;
+    padding-bottom: -2px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+#settingsContainer {
+    border: solid white;
+    width: 75%;
+    margin-bottom: 100px;
+    margin-top: -100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#textLengths {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+
+}
+
+#textLengthTitle {
+    font-size: 24px;
+}
+
+#start {
+    width: 150px;
+    height: 40px;
+    background-color: var(--text);
+    color: var(--background);
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    margin-right: 100px;
 }
